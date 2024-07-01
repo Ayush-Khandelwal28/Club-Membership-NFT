@@ -12,6 +12,7 @@ const Members = ({ members }) => {
             <table className="all-members-table">
                 <thead>
                     <tr className="all-members-header">
+                        <th className="all-members-index">S. No.</th>
                         <th className="all-members-name">Name</th>
                         <th className="all-members-role">Role</th>
                     </tr>
@@ -19,6 +20,7 @@ const Members = ({ members }) => {
                 <tbody>
                     {members.map((member, index) => (
                         <tr key={index} className="all-members-item">
+                            <td className="all-members-index">{index + 1}</td>
                             <td className="all-members-name">{member.name}</td>
                             <td className="all-members-role">{member.attributes.find(attr => attr.trait_type === 'Role').value}</td>
                         </tr>

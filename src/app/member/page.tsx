@@ -31,10 +31,12 @@ const Page = () => {
 
     console.log('User Data', userData);
 
+    console.log('Token URI Data', tokenURIData);
+
 
     useEffect(() => {
         if (tokenURIData) {
-            setUri(tokenURIData.filter(uri => uri)); // Filter out falsy values
+            setUri(tokenURIData.filter(uri => uri)); 
         }
     }, [tokenURIData]);
 

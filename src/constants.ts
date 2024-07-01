@@ -607,6 +607,7 @@ export const abi = [
 		"type": "function"
 	}
 ]
-export const address = '0x47A8F3D58912129B0dCF7F5A043dCD90CA8EF65A'
+// export const address = '0x47A8F3D58912129B0dCF7F5A043dCD90CA8EF65A'
+export const address = '0x74F4b23eA8ED2853bc05484D9dB345ec523690Cc'
 
 export const adminAddress = '0xD3C15aEa275ac6A6f1eD8681Ee002150C9DF810f'
