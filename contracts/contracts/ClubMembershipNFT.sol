@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract ClubNFT is ERC721URIStorage, Ownable {
+contract ClubMembershipNFT is ERC721URIStorage, Ownable {
     uint256 private _nextTokenId;
 
     mapping(address => bool) private isMember;
