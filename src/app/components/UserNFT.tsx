@@ -3,7 +3,7 @@ import '../css/UserNFT.css';
 
 const UserNFT = ({ data }) => {
     if (!data) {
-        return <div className="user-nft no-data">No data available</div>;
+        return <div className="user-nft no-data">No Data Available</div>;
     }
 
     return (

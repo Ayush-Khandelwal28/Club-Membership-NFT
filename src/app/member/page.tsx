@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { useAccount, useReadContract } from 'wagmi';
 import { abi, address as contractAddress } from '../../constants';
 import axios from 'axios';
@@ -26,13 +26,6 @@ const Page = () => {
         functionName: 'getUserURI',
         args: [address],
     });
-
-    console.log('Curr user URI', currUserUri);
-
-    console.log('User Data', userData);
-
-    console.log('Token URI Data', tokenURIData);
-
 
     useEffect(() => {
         if (tokenURIData) {

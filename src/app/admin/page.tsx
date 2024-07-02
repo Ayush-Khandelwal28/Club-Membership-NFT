@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useWriteContract, type BaseError } from 'wagmi';
 import { abi, address as contractAddress } from '../../constants';
-import '../css/Admin.css';
 import { ToastContainer, toast } from 'react-toastify';
+import '../css/Admin.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AdminPage = () => {
@@ -13,22 +13,23 @@ const AdminPage = () => {
     const [userAddress, setUserAddress] = useState('');
     const [role, setRole] = useState('member');
     const [year, setYear] = useState('2024');
-    const [nftUri, setNftUri] = useState('');
 
-    const { data: writeData, isPending: isWriteLoading, status: writeStatus, isError: isWriteError, writeContract } = useWriteContract();
+    const { isPending: isWriteLoading, status: writeStatus, isError: isWriteError, writeContract } = useWriteContract();
     const toastId = React.useRef(null);
 
     useEffect(() => {
-        if (writeStatus === 'success' && !isWriteLoading && !isWriteError) {
+        if (writeStatus === 'pending') {
+            toastId.current = toast.loading("Minting NFT");
+        }
+        else if (writeStatus === 'success' && !isWriteLoading && !isWriteError) {
             toast.update(toastId.current, {
                 render: "NFT Minted",
                 isLoading: false,
                 autoClose: 5000,
                 type: "success",
             });
-        } else if (writeStatus === 'pending') {
-            toastId.current = toast.loading("Minting NFT");
-        } else if (writeStatus === 'error') {
+        }
+        else if (writeStatus === 'error') {
             toast.update(toastId.current, {
                 render: 'Error Minting NFT',
                 isLoading: false,
@@ -50,8 +51,6 @@ const AdminPage = () => {
             data.set('year', year);
         }
         toastId.current = toast("Metadata Created");
-        console.log('Image is', data.get('file'));
-        console.log('data is', data);
 
         const result = await fetch('/api/submit', {
             method: 'POST',
@@ -60,22 +59,13 @@ const AdminPage = () => {
 
         if (result.ok) {
             const res = await result.json();
-            console.log('Result:', res);
-            console.log('Image URI:', res.ImageURI);
-            console.log('NFT URI:', res.nftURI);
-            setNftUri(res.nftURI);
             mintNFT(res.nftURI);
-            console.log('Minting NFT: client side');
         } else {
             toast.error("Error Submitting Form");
-            console.error('Error submitting form');
         }
     };
 
-    const mintNFT = (URI) => {
-        console.log('write')
-        console.log('Address for Minting', userAddress);
-        console.log('NFT URI:', URI);
+    const mintNFT = (URI: string) => {
         try {
             writeContract({
                 address: contractAddress,
@@ -87,11 +77,6 @@ const AdminPage = () => {
             console.error('Error minting NFT:', error);
         }
 
-    };
-
-    const TriggerToast = () => {
-        console.log('Triggering Toast');
-        toast.success("Wow so easy!");
     };
 
     return (
@@ -156,7 +141,6 @@ const AdminPage = () => {
                 </label>
                 <button type="submit" className="admin-button">Submit</button>
             </form>
-            <button onClick={TriggerToast}>Check Toast</button>
             <ToastContainer />
         </div>
     );

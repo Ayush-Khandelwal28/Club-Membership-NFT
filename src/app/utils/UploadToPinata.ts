@@ -1,4 +1,4 @@
-// const PINATA_JWT = 
+const PINATA_JWT = process.env.NEXT_PUBLIC_PINATA_JWT;
 const IPFS_GATEWAY = 'https://gateway.pinata.cloud/ipfs/'
 
 export const uploadToPinataFile = async (file: File) => {
@@ -23,7 +23,6 @@ export const uploadToPinataFile = async (file: File) => {
     const { IpfsHash } = result;
     const url = `${IPFS_GATEWAY}${IpfsHash}`;
 
-    console.log('The Ipfs Hash is', IpfsHash);
     console.log('The URL is: ', url);
 
     return IpfsHash;
@@ -48,7 +47,6 @@ export const uploadToPinataJson = async (formData: string) => {
     const { IpfsHash } = result;
     const url = `${IPFS_GATEWAY}${IpfsHash}`;
 
-    console.log('The Ipfs Hash is', IpfsHash);
     console.log('The URL is: ', url);
 
     return IpfsHash;
